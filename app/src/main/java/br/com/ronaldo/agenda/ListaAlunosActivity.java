@@ -91,6 +91,8 @@ public class ListaAlunosActivity extends AppCompatActivity {
 }
 /*
 
+
+anotaçoes
 resolver arvore kantek abp 021017 20h00
 monte a arvore, maior pra direita, menor pra esquerda
 monte as outras 2 arvores

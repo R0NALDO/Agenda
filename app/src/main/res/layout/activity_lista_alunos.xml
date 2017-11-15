@@ -17,9 +17,9 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:text="+"
-        android:textColor="#ffffff"
+        android:textColor="#fff"
         android:textSize="40sp"
-        android:elevation="16dp"
+        android:elevation="13dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
@@ -27,8 +27,5 @@
         android:background="@drawable/fundo"
         android:stateListAnimator="@null"
         />
-
-
-
 
 </RelativeLayout>

@@ -28,6 +28,7 @@ public class FormularioHelper {
          aluno = new Aluno();
     }
 
+    //pega do xml e monta um objeto aluno
     //se existente, altera os atrib. e devolve essa instancia
     public Aluno pegaAluno() {
         aluno.setNome(campoNome.getText().toString());
@@ -38,6 +39,7 @@ public class FormularioHelper {
         return aluno;
     }
 
+    //pega os atrib do aluno que está vindo da lista e mostra na tela
     public void preencheFormulario(Aluno aluno) {
         campoNome.setText(aluno.getNome());
         campoEndereco.setText(aluno.getEndereco());
@@ -47,3 +49,4 @@ public class FormularioHelper {
         this.aluno = aluno;
     }
 }
+

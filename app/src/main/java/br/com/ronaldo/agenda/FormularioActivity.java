@@ -31,8 +31,6 @@ public class FormularioActivity extends AppCompatActivity {
         if (aluno != null){
             helper.preencheFormulario(aluno);
         }
-
-        
     }
 
     @Override
@@ -44,13 +42,19 @@ public class FormularioActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override //botao superior direito de adicionar
+    @Override //menu superior direito de adicionar
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.menu_formulario_ok: //caso o item do menu seja o gravar
-                Aluno aluno = helper.pegaAluno(); //cria o objeto aluno e atribui
 
-                AlunoDAO dao = new AlunoDAO(this); //cria instancia que ira conectar no banco
+            //caso o item do menu seja o gravar
+            case R.id.menu_formulario_ok:
+
+                //cria o objeto aluno e atribui mudanças do xml
+                Aluno aluno = helper.pegaAluno();
+
+                //cria instancia que ira conectar no banco
+                AlunoDAO dao = new AlunoDAO(this);
+
                 if (aluno.getId() != null){
                     dao.altera(aluno); //se não nulo atualiza
                 }else {
@@ -61,9 +65,7 @@ public class FormularioActivity extends AppCompatActivity {
                 Toast.makeText(FormularioActivity.this, " Aluno "+aluno.getNome()+" salvo", Toast.LENGTH_LONG).show();
                 finish();
                 break;
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

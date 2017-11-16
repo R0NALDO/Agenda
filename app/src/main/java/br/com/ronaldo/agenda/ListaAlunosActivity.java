@@ -1,6 +1,8 @@
 package br.com.ronaldo.agenda;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Browser;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -37,7 +39,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
             }
         });
 
-        //botao infeior direito da lista
+        //botao inferior direito da lista
         Button novoAluno = (Button) findViewById(R.id.novo_aluno);
         novoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,14 +71,41 @@ public class ListaAlunosActivity extends AppCompatActivity {
     @Override
     //menu do nome clicado 5-1
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
-        MenuItem deletar = menu.add("Deletar");
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        //pega aluno selecionado
+        final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+
+        //opçao sms
+        MenuItem itemSms = menu.add("enviar sms");
+        Intent intentSms = new Intent(Intent.ACTION_VIEW);
+        intentSms.setData(Uri.parse("sms:"+aluno.getEndereco()));
+        itemSms.setIntent(intentSms);
+
+        //opçao mapa
+        MenuItem itemMapa = menu.add("mostrar no mapa");
+        Intent intentMapa = new Intent(Intent.ACTION_VIEW);
+        intentMapa.setData(Uri.parse("geo:0,0?q="+aluno.getEndereco()));
+        itemMapa.setIntent(intentMapa);
+
+        //opção ir para o site
+        MenuItem itemSite = menu.add("Visitar site");
+        Intent intentSite = new Intent(Intent.ACTION_VIEW);
+
+        //acessar site
+        String site = aluno.getSite();
+        if (!site.startsWith("http://")){
+            site = "http://"+site;
+        }
+
+        intentSite.setData(Uri.parse(site));
+        itemSite.setIntent(intentSite);
+
         //opção deletar clicado
+        MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                //pega aluno selecionado
-                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+
 
                 AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
                 dao.deleta(aluno);
@@ -90,14 +119,10 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 }
 /*
-
-
 anotaçoes
 resolver arvore kantek abp 021017 20h00
 monte a arvore, maior pra direita, menor pra esquerda
 monte as outras 2 arvores
 depois apliqeu as sequintes operaçoes
 retire o numero de uma arvore e insira na outra
-
-
 */

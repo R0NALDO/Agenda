@@ -54,17 +54,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
         });
         //declara que um nome da lista mostrará opções
         registerForContextMenu(listaAlunos);
-
-        //botao mostra todos contatos
-        Button mostrarTodos = (Button) findViewById(R.id.mostrar_todos);
-        mostrarTodos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri UriListaTodosContatos = Uri.parse("content://com.android.contacts/contacts/");
-                Intent IdadosContatos = new Intent(Intent.ACTION_PICK, UriListaTodosContatos);
-                startActivity(IdadosContatos);
-            }
-        });
     }
 
     private void carregaLista() {
@@ -85,7 +74,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     @Override
-    //menu do nome clicado 5-1
+    //menu de contexto do nome clicado 5-1
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         //pega aluno selecionado
@@ -135,12 +124,24 @@ public class ListaAlunosActivity extends AppCompatActivity {
         intentSite.setData(Uri.parse(site));
         itemSite.setIntent(intentSite);
 
+        //opção mostrar todos contatos
+        MenuItem mostrartodos = menu.add("Mostrar todos os contatos");
+        mostrartodos.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Uri UriListaTodosContatos = Uri.parse("content://com.android.contacts/contacts/");
+                Intent ITodosContatos = new Intent(Intent.ACTION_PICK, UriListaTodosContatos);
+                startActivity(ITodosContatos);
+
+                return false;
+            }
+        });
+
         //opção deletar
         MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-
 
                 AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
                 dao.deleta(aluno);
@@ -151,16 +152,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-
-        //opção mostrar todos contatos
-        MenuItem itemTodos = menu.add("mostrar todos os contatos");
-        Intent intentTodos = new Intent(Intent.ACTION_PICK);
-        intentTodos.setData(Uri.parse("content://com.android.contacts/contacts/"));
-        itemSms.setIntent(intentTodos);
-
-
     }
 
     @Override //resultado do pedido de permissao, tem as permissoes que foram pedidas e o resultado desses pedidos
@@ -168,13 +159,3 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
-
-
-/*
-anotaçoes
-resolver arvore kantek abp 021017 20h00
-monte a arvore, maior pra direita, menor pra esquerda
-monte as outras 2 arvores
-depois apliqeu as sequintes operaçoes
-retire o numero de uma arvore e insira na outra
-*/

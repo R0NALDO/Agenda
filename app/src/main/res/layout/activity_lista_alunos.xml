@@ -28,21 +28,7 @@
         android:stateListAnimator="@null"
         />
 
-    <Button
-        android:id="@+id/mostrar_todos"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:text="+"
-        android:textColor="#fff"
-        android:textSize="40sp"
-        android:elevation="13dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/fundo"
-        android:stateListAnimator="@null"
-        />
+
 
 
 </RelativeLayout>

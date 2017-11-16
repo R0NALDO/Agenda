@@ -54,6 +54,17 @@ public class ListaAlunosActivity extends AppCompatActivity {
         });
         //declara que um nome da lista mostrará opções
         registerForContextMenu(listaAlunos);
+
+        //botao mostra todos contatos
+        Button mostrarTodos = (Button) findViewById(R.id.mostrar_todos);
+        mostrarTodos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri UriListaTodosContatos = Uri.parse("content://com.android.contacts/contacts/");
+                Intent IdadosContatos = new Intent(Intent.ACTION_PICK, UriListaTodosContatos);
+                startActivity(IdadosContatos);
+            }
+        });
     }
 
     private void carregaLista() {
@@ -140,6 +151,15 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
+        //opção mostrar todos contatos
+        MenuItem itemTodos = menu.add("mostrar todos os contatos");
+        Intent intentTodos = new Intent(Intent.ACTION_PICK);
+        intentTodos.setData(Uri.parse("content://com.android.contacts/contacts/"));
+        itemSms.setIntent(intentTodos);
+
 
     }
 
